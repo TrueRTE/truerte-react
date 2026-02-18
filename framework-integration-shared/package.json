@@ -1,0 +1,32 @@
+{
+  "name": "@truerte/framework-integration-shared",
+  "version": "1.2.0",
+  "description": "Code shared between multiple TrueRTE framework integrations.",
+  "main": "dist-cjs/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "truerte"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "truerte": "^1.0.4",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3"
+  },
+  "peerDependencies": {
+    "truerte": "^1.0.4"
+  },
+  "include": [
+    "*.js",
+    "*.d.ts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/truerte/framework-integration-shared.git"
+  },
+  "scripts": {
+    "clean": "rimraf dist dist-cjs",
+    "build": "pnpm clean && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json"
+  }
+}

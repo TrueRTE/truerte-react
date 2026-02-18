@@ -1,14 +1,14 @@
 /**
- * Official HugeRTE React component
+ * Official TrueRTE React component
  * Copyright (c) 2022 Ephox Corporation DBA Tiny Technologies, Inc.
- * Copyright (c) 2024 HugeRTE contributors
- * Licensed under the MIT license (https://github.com/hugerte/hugerte-react/blob/main/LICENSE.TXT)
+ * Copyright (c) 2024 TrueRTE contributors
+ * Licensed under the MIT license (https://github.com/truerte/truerte-react/blob/main/LICENSE.TXT)
  */
 import { IEvents } from './Events';
 import { IAllProps } from './components/Editor';
-import type { Editor as HugeRTEEditor, EditorEvent } from 'hugerte';
+import type { Editor as TrueRTEEditor, EditorEvent } from 'truerte';
 
-// TODO: Use what possible from `@hugerte/framework-integration-shared`
+// TODO: Use what possible from `@truerte/framework-integration-shared`
 
 export const isFunction = (x: unknown): x is Function => typeof x === 'function';
 
@@ -52,7 +52,7 @@ export const configHandlers2 = <H> (
 };
 
 export const configHandlers = (
-  editor: HugeRTEEditor,
+  editor: TrueRTEEditor,
   prevProps: Partial<IAllProps>,
   props: Partial<IAllProps>,
   boundHandlers: Record<string, (event: EditorEvent<any>) => unknown>,
@@ -85,7 +85,7 @@ export const mergePlugins = (initPlugins: string | string[] | undefined, inputPl
 
 export const isBeforeInputEventAvailable = () => window.InputEvent && typeof (InputEvent.prototype as any).getTargetRanges === 'function';
 
-export const setMode = (editor: HugeRTEEditor | undefined, mode: 'readonly' | 'design') => {
+export const setMode = (editor: TrueRTEEditor | undefined, mode: 'readonly' | 'design') => {
   if (editor !== undefined) {
     editor.mode.set(mode);
   }

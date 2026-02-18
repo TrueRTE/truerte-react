@@ -1,14 +1,14 @@
 import { Assertions } from '@ephox/agar';
 import { Version } from 'src/main/ts/components/Editor';
-import { Editor as HugeRTEEditor } from 'hugerte';
+import { Editor as TrueRTEEditor } from 'truerte';
 import { ScriptLoader } from 'src/main/ts/ScriptLoader2';
 
 interface EventHandlerArgs<T> {
   editorEvent: T;
-  editor: HugeRTEEditor;
+  editor: TrueRTEEditor;
 }
 
-type HandlerType<A> = (a: A, editor: HugeRTEEditor) => unknown;
+type HandlerType<A> = (a: A, editor: TrueRTEEditor) => unknown;
 
 const VERSIONS: Version[] = [ '1' ];
 const CDN_VERSIONS: Version[] = [ '1' ];
@@ -61,25 +61,25 @@ const EventStore = () => {
 };
 
 // TODO: remove, we shall import from shared, but then it will also use the shared scriptloader so make sure we only use she shared loader
-/** Function to clean up and remove HugeRTE-related scripts and links from the document */
-const cleanupGlobalHugeRTE = (): void => {
+/** Function to clean up and remove TrueRTE-related scripts and links from the document */
+const cleanupGlobalTrueRTE = (): void => {
   ScriptLoader.reinitialize();
-  delete (globalThis as any).hugerte;
-  delete (globalThis as any).hugeRTE;
-  /** Helper function to check if an element has a HugeRTE-related URI in a specific attribute */
-  const hasHugeRTEUri = (attrName: string) => (elm: Element): boolean => {
+  delete (globalThis as any).truerte;
+  delete (globalThis as any).trueRTE;
+  /** Helper function to check if an element has a TrueRTE-related URI in a specific attribute */
+  const hasTrueRTEUri = (attrName: string) => (elm: Element): boolean => {
     const src = elm.getAttribute(attrName);
-    return src != null && src.includes('hugerte');
+    return src != null && src.includes('truerte');
   };
-  // Find all script and link elements that have a HugeRTE-related URI
+  // Find all script and link elements that have a TrueRTE-related URI
   [
-    ...Array.from(document.querySelectorAll('script')).filter(hasHugeRTEUri('src')),
-    ...Array.from(document.querySelectorAll('link')).filter(hasHugeRTEUri('href'))
+    ...Array.from(document.querySelectorAll('script')).filter(hasTrueRTEUri('src')),
+    ...Array.from(document.querySelectorAll('link')).filter(hasTrueRTEUri('href'))
   ].forEach((elm) => elm.remove());
 };
 
 export {
-  cleanupGlobalHugeRTE,
+  cleanupGlobalTrueRTE,
 };
 
 export {

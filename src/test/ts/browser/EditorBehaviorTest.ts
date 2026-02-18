@@ -2,9 +2,9 @@ import * as Loader from '../alien/Loader';
 
 import { describe, it } from '@ephox/bedrock-client';
 
-import { getHugeRTE } from '../../../main/ts/HugeRTE';
+import { getTrueRTE } from '../../../main/ts/TrueRTE';
 import { EventStore, VERSIONS } from '../alien/TestHelpers';
-import { Editor as HugeRTEEditor, EditorEvent, Events } from 'hugerte';
+import { Editor as TrueRTEEditor, EditorEvent, Events } from 'truerte';
 import { Assertions, Waiter } from '@ephox/agar';
 import { TinySelections } from '@ephox/mcagar'; // TODO get rid of it
 
@@ -14,30 +14,30 @@ describe('EditorBehaviourTest', () => {
   // See lines 40 and 105
   // const versionRegex = /6|7/;
 
-  const isEditor = (val: unknown): val is HugeRTEEditor => {
-    const hugerte = getHugeRTE(window);
-    if (!hugerte) {
+  const isEditor = (val: unknown): val is TrueRTEEditor => {
+    const truerte = getTrueRTE(window);
+    if (!truerte) {
       return false;
     }
-    return val instanceof hugerte.Editor;
+    return val instanceof truerte.Editor;
   };
 
   const eventStore = EventStore();
 
   VERSIONS.forEach((version) =>
     Loader.withVersion(version, (render) => {
-      it('Assert structure of hugerte and hugerte-react events', async () => {
+      it('Assert structure of truerte and truerte-react events', async () => {
         using ctx = await render({
           onEditorChange: eventStore.createHandler('onEditorChange'),
           onSetContent: eventStore.createHandler('onSetContent'),
         });
 
-        // hugerte native event
+        // truerte native event
         // initial content is empty as editor does not have a value or initialValue
         eventStore.each<SetContentEvent>('onSetContent', (events) => {
-          // note that this difference in behavior in TinyMCE 5-6 may be a bug, TODO investigate for HugeRTE
+          // note that this difference in behavior in TinyMCE 5-6 may be a bug, TODO investigate for TrueRTE
           Assertions.assertEq(
-            'First arg should be event from HugeRTE',
+            'First arg should be event from TrueRTE',
             /* versionRegex.test(version) */ true ? '<p><br data-mce-bogus="1"></p>' : '',
             events[0].editorEvent.content
           );
@@ -46,7 +46,7 @@ describe('EditorBehaviourTest', () => {
         eventStore.clearState();
 
         ctx.editor.setContent('<p>Initial Content</p>');
-        // hugerte native event
+        // truerte native event
         eventStore.each<SetContentEvent>('onSetContent', (events) => {
           Assertions.assertEq('onSetContent should have been fired once', 1, events.length);
           Assertions.assertEq(
@@ -57,7 +57,7 @@ describe('EditorBehaviourTest', () => {
           Assertions.assertEq('Second arg should be editor', true, isEditor(events[0].editor));
         });
 
-        // hugerte-react unique event
+        // truerte-react unique event
         eventStore.each<string>('onEditorChange', (events) => {
           Assertions.assertEq('First arg should be new content', '<p>Initial Content</p>', events[0].editorEvent);
           Assertions.assertEq('Second arg should be editor', true, isEditor(events[0].editor));
@@ -83,7 +83,7 @@ describe('EditorBehaviourTest', () => {
         using ctx = await render({ initialValue: '<p>Initial Content</p>' });
         await ctx.reRender({ onSetContent: eventStore.createHandler('onSetContent') });
 
-        Assertions.assertHtml('Checking HugeRTE content', '<p>Initial Content</p>', ctx.editor.getContent());
+        Assertions.assertHtml('Checking TrueRTE content', '<p>Initial Content</p>', ctx.editor.getContent());
         await Waiter.pWait(0); // Wait for React's state updates to complete before setting new content
         ctx.editor.setContent('<p>New Content</p>');
 
@@ -103,7 +103,7 @@ describe('EditorBehaviourTest', () => {
         eventStore.each<SetContentEvent>('InitialHandler', (events) => {
           Assertions.assertEq(
             'Initial content is empty as editor does not have a value or initialValue',
-            // note that this difference in behavior in TinyMCE 5-6 may be a bug, TODO investigate for HugeRTE
+            // note that this difference in behavior in TinyMCE 5-6 may be a bug, TODO investigate for TrueRTE
             /* versionRegex.test(version) */ true ? '<p><br data-mce-bogus="1"></p>' : '',
             events[0].editorEvent.content
           );

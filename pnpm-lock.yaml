@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@hugerte/framework-integration-shared':
+      '@truerte/framework-integration-shared':
         specifier: ^1.1.0
-        version: 1.1.0(hugerte@1.0.9)
+        version: 1.1.0(truerte@1.0.9)
     devDependencies:
       '@ephox/agar':
         specifier: 8.0.1
@@ -36,12 +36,12 @@ importers:
       '@types/react-dom':
         specifier: ^19.1.7
         version: 19.1.7(@types/react@19.1.10)
-      hugerte:
+      truerte:
         specifier: ^1.0.9
         version: 1.0.9
-      hugerte-1:
-        specifier: npm:hugerte@^1.0.9
-        version: hugerte@1.0.9
+      truerte-1:
+        specifier: npm:truerte@^1.0.9
+        version: truerte@1.0.9
       react:
         specifier: ^19.1.1
         version: 19.1.1
@@ -488,10 +488,10 @@ packages:
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@hugerte/framework-integration-shared@1.1.0':
+  '@truerte/framework-integration-shared@1.1.0':
     resolution: {integrity: sha512-2dLYaz6Hvd6aWLFEISRZwhVI11jbEo1PqzItvfYZmkJPlB5Wm3OsLWGpmlVQsUcuAWgrMq1/onacd/F/yWBBzQ==}
     peerDependencies:
-      hugerte: ^1.0.4
+      truerte: ^1.0.4
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -2554,7 +2554,7 @@ packages:
     resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
     engines: {node: '>= 14'}
 
-  hugerte@1.0.9:
+  truerte@1.0.9:
     resolution: {integrity: sha512-HNWGaUyyfmYkk07fEJ6Y9v8hnCwgg9OyS9Kqxbmi1EZbOJlOd4Z5Fn/gkMuV4vvp25vPLK92BX6Q/7gCywIaOw==}
 
   hyperdyperid@1.2.0:
@@ -4910,9 +4910,9 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@hugerte/framework-integration-shared@1.1.0(hugerte@1.0.9)':
+  '@truerte/framework-integration-shared@1.1.0(truerte@1.0.9)':
     dependencies:
-      hugerte: 1.0.9
+      truerte: 1.0.9
 
   '@humanfs/core@0.19.1': {}
 
@@ -7331,7 +7331,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  hugerte@1.0.9: {}
+  truerte@1.0.9: {}
 
   hyperdyperid@1.2.0: {}
 

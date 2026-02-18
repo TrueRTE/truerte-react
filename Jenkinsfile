@@ -3,7 +3,7 @@
 
 mixedBeehiveFlow(
   container: [ resourceRequestMemory: '3Gi', resourceLimitMemory: '3Gi' ],
-  testPrefix: 'HugeRTE-React',
+  testPrefix: 'TrueRTE-React',
   platforms: [
     [ browser: 'chrome', headless: true ],
     [ browser: 'firefox', provider: 'aws', buckets: 1 ],

@@ -1,9 +1,9 @@
 import { createRoot } from 'react-dom/client';
 import * as React from 'react';
 import { Editor, IAllProps, IProps, Version } from '../../../main/ts/components/Editor';
-import { Editor as HugeRTEEditor } from 'hugerte';
+import { Editor as TrueRTEEditor } from 'truerte';
 import { before, context } from '@ephox/bedrock-client';
-import { pLoadVersion } from '@hugerte/framework-integration-shared';
+import { pLoadVersion } from '@truerte/framework-integration-shared';
 
 // @ts-expect-error Remove when dispose polyfill is not needed
 Symbol.dispose ??= Symbol('Symbol.dispose');
@@ -12,7 +12,7 @@ Symbol.asyncDispose ??= Symbol('Symbol.asyncDispose');
 
 export interface Context {
   DOMNode: HTMLElement;
-  editor: HugeRTEEditor;
+  editor: TrueRTEEditor;
   ref: React.RefObject<Editor>;
 }
 
@@ -64,7 +64,7 @@ export const render = async (props: Partial<IAllProps> = {}, container: HTMLElem
     };
 
     /**
-     * TODO: Check if this note also applies to higher TinyMCE versions and also to HugeRTE.
+     * TODO: Check if this note also applies to higher TinyMCE versions and also to TrueRTE.
      * NOTE: TinyMCE will manipulate the DOM directly and this may cause issues with React's virtual DOM getting
      * out of sync. The official fix for this is wrap everything (textarea + editor) in an element. As far as React
      * is concerned, the wrapper always only has a single child, thus ensuring that React doesn’t have a reason to
@@ -98,12 +98,12 @@ export const render = async (props: Partial<IAllProps> = {}, container: HTMLElem
 };
 
 type RenderWithVersion = (
-  props: Omit<IAllProps, 'cdnVersion' | 'hugerteScriptSrc'>,
+  props: Omit<IAllProps, 'cdnVersion' | 'truerteScriptSrc'>,
   container?: HTMLElement | HTMLDivElement
 ) => Promise<ReactEditorContext>;
 
 export const withVersion = (version: Version, fn: (render: RenderWithVersion) => void): void => {
-  context(`HugeRTE (${version})`, () => {
+  context(`TrueRTE (${version})`, () => {
     before(async () => {
       await pLoadVersion(version);
     });

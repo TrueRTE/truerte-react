@@ -13,4 +13,4 @@ assignees: ''
 
 **What is the expected behavior?**
 
-**Which versions of HugeRTE, and which browser / OS are affected by this issue? Did this work in previous versions of HugeRTE or `hugerte-react`?**
+**Which versions of TrueRTE, and which browser / OS are affected by this issue? Did this work in previous versions of TrueRTE or `truerte-react`?**

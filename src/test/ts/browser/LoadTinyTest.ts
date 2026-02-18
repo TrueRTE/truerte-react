@@ -6,47 +6,47 @@ import { CDN_VERSIONS, VERSIONS, type Version } from '../alien/TestHelpers';
 import { render } from '../alien/Loader';
 import { ScriptLoader } from 'src/main/ts/ScriptLoader2';
 
-const assertHugeRTEVersion = (version: Version) => {
-  Assertions.assertEq(`Loaded version of HugeRTE should be ${version}`, version, (globalThis as any).hugerte.majorVersion);
+const assertTrueRTEVersion = (version: Version) => {
+  Assertions.assertEq(`Loaded version of TrueRTE should be ${version}`, version, (globalThis as any).truerte.majorVersion);
 };
 
-export const deleteHugeRTE = () => {
+export const deleteTrueRTE = () => {
   ScriptLoader.reinitialize();
 
-  delete (globalThis as any).hugerte;
-  delete (globalThis as any).hugeRTE;
+  delete (globalThis as any).truerte;
+  delete (globalThis as any).trueRTE;
 
-  const hasHugeRTEUri = (attrName: string) => (elm: Element) => {
+  const hasTrueRTEUri = (attrName: string) => (elm: Element) => {
     const src = elm.getAttribute(attrName);
-    return src != null && src.includes('hugerte');
+    return src != null && src.includes('truerte');
   };
 
   [
-    ...Array.from(document.querySelectorAll('script')).filter(hasHugeRTEUri('src')),
-    ...Array.from(document.querySelectorAll('link')).filter(hasHugeRTEUri('href'))
+    ...Array.from(document.querySelectorAll('script')).filter(hasTrueRTEUri('src')),
+    ...Array.from(document.querySelectorAll('link')).filter(hasTrueRTEUri('href'))
   ].forEach((elm) => elm.remove());
 };
 
 describe('LoadTinyTest', () => {
   beforeEach(() => {
-    deleteHugeRTE();
+    deleteTrueRTE();
   });
 
   VERSIONS.forEach((version) => {
-    it(`Should be able to load local version (${version}) of HugeRTE using the hugerteScriptSrc prop`, async () => {
-      using _ = await render({ hugerteScriptSrc: `/project/node_modules/hugerte-${version}/hugerte.min.js` });
-      assertHugeRTEVersion(version);
+    it(`Should be able to load local version (${version}) of TrueRTE using the truerteScriptSrc prop`, async () => {
+      using _ = await render({ truerteScriptSrc: `/project/node_modules/truerte-${version}/truerte.min.js` });
+      assertTrueRTEVersion(version);
     });
   });
 
   CDN_VERSIONS.forEach((version) => {
-    it(`Should be able to load HugeRTE from CDN (${version})`, async () => {
+    it(`Should be able to load TrueRTE from CDN (${version})`, async () => {
       using _ = await render({ cdnVersion: version });
-      assertHugeRTEVersion(version);
+      assertTrueRTEVersion(version);
       Assertions.assertEq(
-        'HugeRTE should have been loaded from jsDelivr CDN',
-        `https://cdn.jsdelivr.net/npm/hugerte@${version}`,
-        (globalThis as any).hugerte.baseURI.source
+        'TrueRTE should have been loaded from jsDelivr CDN',
+        `https://cdn.jsdelivr.net/npm/truerte@${version}`,
+        (globalThis as any).truerte.baseURI.source
       );
     });
   });

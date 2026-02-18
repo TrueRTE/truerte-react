@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-The HugeRTE React component 1.0.0 is based on the TinyMCE React component 6.0.0-rc. Unreleased changes from Tiny since 5.1.0 are included in the 1.0.0 changelog.
+The TrueRTE React component 1.0.0 is based on the TinyMCE React component 6.0.0-rc. Unreleased changes from Tiny since 5.1.0 are included in the 1.0.0 changelog.
 
 ## 2.0.2 - 2025-08-30
 
@@ -14,7 +14,7 @@ The HugeRTE React component 1.0.0 is based on the TinyMCE React component 6.0.0-
 ## 2.0.1 - 2025-06-30
 
 ## Fixed
-- Building a project using `@hugerte/hugerte-react` failed without manually adding `@hugerte/framework-integration-shared` as a dependency.
+- Building a project using `@truerte/truerte-react` failed without manually adding `@truerte/framework-integration-shared` as a dependency.
 
 ## 2.0.0 - 2025-06-30
 
@@ -25,8 +25,8 @@ The HugeRTE React component 1.0.0 is based on the TinyMCE React component 6.0.0-
 - Removed an IE/old Edge specific fallback code.
 
 ### Changed
-- Renamed the prefix of the default editor wrapper element ID from `tiny-react` to `hugerte-react`.
-- Bumped some dependencies, including `hugerte`.
+- Renamed the prefix of the default editor wrapper element ID from `tiny-react` to `truerte-react`.
+- Bumped some dependencies, including `truerte`.
 
 ### Added
 - Added support for React 19.x.
@@ -46,8 +46,8 @@ The HugeRTE React component 1.0.0 is based on the TinyMCE React component 6.0.0-
 - Added `cdnVersion` prop.
 
 ### Changed
-- Moved ~~tinymce~~ (now hugerte) dependency to peerDependencies, as well as making it optional.
-- Renamed `tinymceScriptSrc` prop to `hugerteScriptSrc` and restrict its type to a string.
+- Moved ~~tinymce~~ (now truerte) dependency to peerDependencies, as well as making it optional.
+- Renamed `tinymceScriptSrc` prop to `truerteScriptSrc` and restrict its type to a string.
 
 ### Removed
 - Removed `apiKey` prop.

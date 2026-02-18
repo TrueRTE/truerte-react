@@ -1,16 +1,16 @@
 /**
- * Official HugeRTE React component
+ * Official TrueRTE React component
  * Copyright (c) 2022 Ephox Corporation DBA Tiny Technologies, Inc.
- * Copyright (c) 2024 HugeRTE contributors
- * Licensed under the MIT license (https://github.com/hugerte/hugerte-react/blob/main/LICENSE.TXT)
+ * Copyright (c) 2024 TrueRTE contributors
+ * Licensed under the MIT license (https://github.com/truerte/truerte-react/blob/main/LICENSE.TXT)
  */
 import * as React from 'react';
 import { IEvents } from '../Events';
 import { ScriptItem, ScriptLoader } from '../ScriptLoader2';
-import { getHugeRTE } from '../HugeRTE';
+import { getTrueRTE } from '../TrueRTE';
 import { isFunction, isTextareaOrInput, mergePlugins, configHandlers, isBeforeInputEventAvailable, setMode } from '../Utils';
-import { uuid } from '@hugerte/framework-integration-shared';
-import type { Bookmark, Editor as HugeRTEEditor, EditorEvent, HugeRTE } from 'hugerte';
+import { uuid } from '@truerte/framework-integration-shared';
+import type { Bookmark, Editor as TrueRTEEditor, EditorEvent, TrueRTE } from 'truerte';
 
 const changeEvents = 'change keyup compositionend setcontent CommentChange';
 
@@ -22,7 +22,7 @@ interface DoNotUse<T extends string> {
 
 type OmittedInitProps = 'selector' | 'target' | 'readonly';
 
-type EditorOptions = Parameters<HugeRTE['init']>[0];
+type EditorOptions = Parameters<TrueRTE['init']>[0];
 
 export type InitOptions = Omit<OmitStringIndexSignature<EditorOptions>, OmittedInitProps> & {
   selector?: DoNotUse<'selector prop is handled internally by the component'>;
@@ -34,88 +34,93 @@ export type Version = `${'1'}${'' | `.${number}` | `.${number}.${number}`}`;
 
 export interface IProps {
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#id React Tech Ref - id}
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#id React Tech Ref - id}
    * @description The ID of the element to render the editor into.
    */
   id: string;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#inline React Tech Ref - inline}
-   * @description Whether the editor should be rendered inline. Equivalent to the `inline` option in HugeRTE.
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#inline React Tech Ref - inline}
+   * @description Whether the editor should be rendered inline. Equivalent to the `inline` option in TrueRTE.
    */
   inline: boolean;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#initialvalue React Tech Ref - initialValue}
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#initialvalue React Tech Ref - initialValue}
    * @description The initial HTML content of the editor.
    *
    * IMPORTANT: Ensure that this is **not** updated by `onEditorChange` or the editor will be unusable.
    */
   initialValue: string;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#oneditorchange React Tech Ref - onEditorChange}
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#oneditorchange React Tech Ref - onEditorChange}
    * @description Used to store the state of the editor outside the component. Typically used for controlled components.
    * @param a The current HTML content of the editor.
-   * @param editor The HugeRTE editor instance.
+   * @param editor The TrueRTE editor instance.
    * @returns void
    */
-  onEditorChange: (a: string, editor: HugeRTEEditor) => void;
+  onEditorChange: (a: string, editor: TrueRTEEditor) => void;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#value React Tech Ref - value}
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#value React Tech Ref - value}
    * @description The current HTML content of the editor. Typically used for controlled components.
    */
   value: string;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#init React Tech Ref - init}
-   * @description Additional settings passed to `hugerte.init()` when initializing the editor.
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#init React Tech Ref - init}
+   * @description Additional settings passed to `truerte.init()` when initializing the editor.
    */
   init: InitOptions;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#tagname React Tech Ref - tagName}
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#tagname React Tech Ref - tagName}
    * @description The tag name of the element to render the editor into. Only valid when `inline` is `true`.
    */
   tagName: string;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#tabIndex React Tech Ref - tabIndex}
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#tabIndex React Tech Ref - tabIndex}
    * @description The tab index of the element that the editor wraps.
    */
   tabIndex: number;
   /**
-   * @description The HugeRTE version to use when loading from jsDelivr CDN. By default, version 1
+   * @description The TrueRTE version to use when loading from jsDelivr CDN. By default, version 1
    * (that is, the latest minor and patch release of the major version 1) will be used.
    * For more info about the possible version formats, see the {@link https://www.jsdelivr.com/documentation#id-npm jsDelivr documentation}.
    */
   cdnVersion: Version;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#plugins React Tech Ref - plugins}
-   * @description The plugins to load into the editor. Equivalent to the `plugins` option in HugeRTE.
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#plugins React Tech Ref - plugins}
+   * @description The plugins to load into the editor. Equivalent to the `plugins` option in TrueRTE.
    */
   plugins: NonNullable<EditorOptions['plugins']>;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#toolbar React Tech Ref - toolbar}
-   * @description The toolbar to load into the editor. Equivalent to the `toolbar` option in HugeRTE.
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#toolbar React Tech Ref - toolbar}
+   * @description The toolbar to load into the editor. Equivalent to the `toolbar` option in TrueRTE.
    */
   toolbar: NonNullable<EditorOptions['toolbar']>;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#disabled React Tech Ref - disabled}
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#disabled React Tech Ref - disabled}
    * @description Whether the editor should be "disabled" (read-only).
    */
   disabled: boolean;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#textareaname React Tech Ref - textareaName}
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#textareaname React Tech Ref - textareaName}
    * @description Set the `name` attribute of the `textarea` element used for the editor in forms. Only valid in iframe mode.
    */
   textareaName: string;
   /**
-   * @description The URL of the HugeRTE script to lazy load.
+   * @description The URL of the TrueRTE script to lazy load.
    */
-  hugerteScriptSrc: string;
+  truerteScriptSrc: string;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#rollback React Tech Ref - rollback}
+   * @description When true, automatically configures `icons: 'truerte-lucide'`
+   * unless you explicitly provide `init.icons` or `init.icons_url`.
+   */
+  useLucideIcons: boolean;
+  /**
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#rollback React Tech Ref - rollback}
    * @description The number of milliseconds to wait before reverting to the previous value when the editor's content changes.
    */
   rollback: number | false;
   /**
-   * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/#scriptloading React Tech Ref - scriptLoading}
-   * @description Options for how the HugeRTE script should be loaded.
+   * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/#scriptloading React Tech Ref - scriptLoading}
+   * @description Options for how the TrueRTE script should be loaded.
    * @property async Whether the script should be loaded with the `async` attribute.
    * @property defer Whether the script should be loaded with the `defer` attribute.
    * @property delay The number of milliseconds to wait before loading the script.
@@ -130,14 +135,14 @@ export interface IProps {
 export interface IAllProps extends Partial<IProps>, Partial<IEvents> { }
 
 /**
- * @see {@link https://www.hugerte.org/docs/hugerte/1/react-ref/ HugeRTE React Technical Reference}
+ * @see {@link https://www.truerte.org/docs/truerte/1/react-ref/ TrueRTE React Technical Reference}
  */
 export class Editor extends React.Component<IAllProps> {
   public static defaultProps: Partial<IAllProps> = {
     cdnVersion: '1',
   };
 
-  public editor?: HugeRTEEditor;
+  public editor?: TrueRTEEditor;
 
   private id: string;
   private elementRef: React.RefObject<HTMLElement | null>;
@@ -149,7 +154,7 @@ export class Editor extends React.Component<IAllProps> {
 
   public constructor(props: Partial<IAllProps>) {
     super(props);
-    this.id = this.props.id || uuid('hugerte-react');
+    this.id = this.props.id || uuid('truerte-react');
     this.elementRef = React.createRef<HTMLElement | null>();
     this.inline = this.props.inline ?? this.props.init?.inline ?? false;
     this.boundHandlers = {};
@@ -169,7 +174,7 @@ export class Editor extends React.Component<IAllProps> {
       if (this.editor.initialized) {
         this.currentContent = this.currentContent ?? this.editor.getContent();
         if (typeof this.props.initialValue === 'string' && this.props.initialValue !== prevProps.initialValue) {
-          // same as resetContent in TinyMCE 5 – TODO what does this mean for HugeRTE?
+          // same as resetContent in TinyMCE 5 – TODO what does this mean for TrueRTE?
           this.editor.setContent(this.props.initialValue);
           this.editor.undoManager.clear();
           this.editor.undoManager.add();
@@ -211,10 +216,10 @@ export class Editor extends React.Component<IAllProps> {
   }
 
   public componentDidMount() {
-    if (getHugeRTE(this.view) !== null) {
+    if (getTrueRTE(this.view) !== null) {
       this.initialise();
-    } else if (Array.isArray(this.props.hugerteScriptSrc) && this.props.hugerteScriptSrc.length === 0) {
-      this.props.onScriptsLoadError?.(new Error('No `hugerte` global is present but the `hugerteScriptSrc` prop was an empty array.'));
+    } else if (Array.isArray(this.props.truerteScriptSrc) && this.props.truerteScriptSrc.length === 0) {
+      this.props.onScriptsLoadError?.(new Error('No `truerte` global is present but the `truerteScriptSrc` prop was an empty array.'));
     } else if (this.elementRef.current?.ownerDocument) {
       const successHandler = () => {
         this.props.onScriptsLoad?.();
@@ -281,14 +286,14 @@ export class Editor extends React.Component<IAllProps> {
   private getScriptSources(): ScriptItem[] {
     const async = this.props.scriptLoading?.async;
     const defer = this.props.scriptLoading?.defer;
-    if (this.props.hugerteScriptSrc !== undefined) {
-      if (typeof this.props.hugerteScriptSrc === 'string') {
-        return [{ src: this.props.hugerteScriptSrc, async, defer }];
+    if (this.props.truerteScriptSrc !== undefined) {
+      if (typeof this.props.truerteScriptSrc === 'string') {
+        return [{ src: this.props.truerteScriptSrc, async, defer }];
       }
     }
-    // fallback to jsDelivr CDN when the hugerteScriptSrc is not specified
+    // fallback to jsDelivr CDN when the truerteScriptSrc is not specified
     // `cdnVersion` is in `defaultProps`, so it's always defined.
-    const cdnLink = `https://cdn.jsdelivr.net/npm/hugerte@${this.props.cdnVersion as Version}/hugerte.min.js`;
+    const cdnLink = `https://cdn.jsdelivr.net/npm/truerte@${this.props.cdnVersion as Version}/truerte.min.js`;
     return [{ src: cdnLink, async, defer }];
   }
 
@@ -409,15 +414,21 @@ export class Editor extends React.Component<IAllProps> {
         setTimeout(() => this.initialise(attempts + 1), 100);
       } else {
         // give up, at this point it seems that more polling is unlikely to help
-        throw new Error('hugerte can only be initialised when in a document');
+        throw new Error('truerte can only be initialised when in a document');
       }
       return;
     }
 
-    const hugerte = getHugeRTE(this.view);
-    if (!hugerte) {
-      throw new Error('hugerte should have been loaded into global scope');
+    const truerte = getTrueRTE(this.view);
+    if (!truerte) {
+      throw new Error('truerte should have been loaded into global scope');
     }
+
+    const resolvedPlugins = mergePlugins(this.props.init?.plugins, this.props.plugins);
+    const hasExplicitIconConfig = this.props.init?.icons !== undefined || this.props.init?.icons_url !== undefined;
+    const resolvedIconPack = this.props.useLucideIcons === true && !hasExplicitIconConfig
+      ? 'truerte-lucide'
+      : this.props.init?.icons;
 
     const finalInit: EditorOptions = {
       ...this.props.init as Omit<InitOptions, OmittedInitProps>,
@@ -425,7 +436,8 @@ export class Editor extends React.Component<IAllProps> {
       target,
       readonly: this.props.disabled,
       inline: this.inline,
-      plugins: mergePlugins(this.props.init?.plugins, this.props.plugins),
+      plugins: resolvedPlugins,
+      icons: resolvedIconPack,
       toolbar: this.props.toolbar ?? this.props.init?.toolbar,
       setup: (editor) => {
         this.editor = editor;
@@ -436,7 +448,7 @@ export class Editor extends React.Component<IAllProps> {
         // However we don't want to take on the responsibility of sanitizing
         // to remove XSS in the react integration so we have a chicken and egg
         // problem... We avoid it by sneaking in a set content before the first
-        // "official" setContent and using HugeRTE to do the sanitization.
+        // "official" setContent and using TrueRTE to do the sanitization.
         if (this.inline && !isTextareaOrInput(target)) {
           editor.once('PostRender', (_evt) => {
             editor.setContent(this.getInitialValue(), { no_events: true });
@@ -448,12 +460,12 @@ export class Editor extends React.Component<IAllProps> {
         }
       },
       init_instance_callback: (editor) => {
-        // check for changes that happened since hugerte.init() was called
+        // check for changes that happened since truerte.init() was called
         const initialValue = this.getInitialValue();
         this.currentContent = this.currentContent ?? editor.getContent();
         if (this.currentContent !== initialValue) {
           this.currentContent = initialValue;
-          // same as resetContent in HugeRTE 5
+          // same as resetContent in TrueRTE 5
           editor.setContent(initialValue);
           editor.undoManager.clear();
           editor.undoManager.add();
@@ -474,6 +486,6 @@ export class Editor extends React.Component<IAllProps> {
       target.value = this.getInitialValue();
     }
 
-    hugerte.init(finalInit);
+    truerte.init(finalInit);
   };
 }

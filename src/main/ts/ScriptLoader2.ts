@@ -1,10 +1,10 @@
 /**
- * Official HugeRTE React component
+ * Official TrueRTE React component
  * Copyright (c) 2022 Ephox Corporation DBA Tiny Technologies, Inc.
- * Copyright (c) 2024 HugeRTE contributors
- * Licensed under the MIT license (https://github.com/hugerte/hugerte-react/blob/main/LICENSE.TXT)
+ * Copyright (c) 2024 TrueRTE contributors
+ * Licensed under the MIT license (https://github.com/truerte/truerte-react/blob/main/LICENSE.TXT)
  */
-import { uuid } from '@hugerte/framework-integration-shared';
+import { uuid } from '@truerte/framework-integration-shared';
 
 // TODO: Migrate to shared script loader.
 

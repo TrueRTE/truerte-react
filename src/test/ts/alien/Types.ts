@@ -1,11 +1,11 @@
-/* Based on code from TinyMCE, MODIFIED (Tiny / TinyMCE -> HugeRTE) */
+/* Based on code from TinyMCE, MODIFIED (Tiny / TinyMCE -> TrueRTE) */
 /* See LEGAL.txt for the original license information */
-export interface FakeHugeRTE {
+export interface FakeTrueRTE {
   majorVersion: string;
   minorVersion: string;
 }
 
-export interface HugeRTE extends FakeHugeRTE {
+export interface TrueRTE extends FakeTrueRTE {
   baseURL: string;
   baseURI: any;
 

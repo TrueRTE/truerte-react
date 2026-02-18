@@ -1,13 +1,13 @@
 /**
- * Official HugeRTE React component
+ * Official TrueRTE React component
  * Copyright (c) 2022 Ephox Corporation DBA Tiny Technologies, Inc.
- * Copyright (c) 2024 HugeRTE contributors
- * Licensed under the MIT license (https://github.com/hugerte/hugerte-react/blob/main/LICENSE.TXT)
+ * Copyright (c) 2024 TrueRTE contributors
+ * Licensed under the MIT license (https://github.com/truerte/truerte-react/blob/main/LICENSE.TXT)
  */
-import type { Editor as HugeRTEEditor, EditorEvent, Events } from 'hugerte';
-import { customEvents, nativeEvents, validEvents } from '@hugerte/framework-integration-shared';
+import type { Editor as TrueRTEEditor, EditorEvent, Events } from 'truerte';
+import { customEvents, nativeEvents, validEvents } from '@truerte/framework-integration-shared';
 
-export type EventHandler<A> = (a: EditorEvent<A>, editor: HugeRTEEditor) => unknown;
+export type EventHandler<A> = (a: EditorEvent<A>, editor: TrueRTEEditor) => unknown;
 
 type EEventHandler<K extends keyof Events.EditorEventMap> = EventHandler<Events.EditorEventMap[K]>;
 

@@ -2,4 +2,4 @@
 
 ## Reporting a Vulnerability
 
-For details on how to report security issues to HugeRTE, refer to the [information in the main HugeRTE repo](https://github.com/hugerte/hugerte/blob/main/SECURITY.md).
+For details on how to report security issues to TrueRTE, refer to the [information in the main TrueRTE repo](https://github.com/truerte/truerte/blob/main/SECURITY.md).

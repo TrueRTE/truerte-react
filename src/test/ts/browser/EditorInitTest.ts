@@ -45,7 +45,7 @@ describe('EditorInitTest', () => {
 
         it('gets set automatically to uuid if not set', async () => {
           using ctx = await render();
-          Assertions.assertEq('Should not be uuid', typeof ctx.DOMNode.id === 'string' && ctx.DOMNode.id.indexOf('hugerte-react') !== -1, true);
+          Assertions.assertEq('Should not be uuid', typeof ctx.DOMNode.id === 'string' && ctx.DOMNode.id.indexOf('truerte-react') !== -1, true);
         });
       });
 
@@ -63,9 +63,9 @@ describe('EditorInitTest', () => {
 
       it('Value prop should propagate changes to editor', async () => {
         using ctx = await render({ value: '<p>Initial Value</p>' });
-        Assertions.assertHtml('Checking HugeRTE content', '<p>Initial Value</p>', ctx.editor.getContent());
+        Assertions.assertHtml('Checking TrueRTE content', '<p>Initial Value</p>', ctx.editor.getContent());
         await ctx.reRender({ ...defaultProps, value: '<p>New Value</p>' });
-        Assertions.assertHtml('Checking HugeRTE content', '<p>New Value</p>', ctx.editor.getContent());
+        Assertions.assertHtml('Checking TrueRTE content', '<p>New Value</p>', ctx.editor.getContent());
       });
 
       it('Disabled prop should disable editor', async () => {
