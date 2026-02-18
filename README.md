@@ -2,6 +2,10 @@
 
 This package is a thin wrapper around TrueRTE to make it easier to use in a React application.
 
+## Documentation
+
+- Complete guide: [Installation and Usage](./docs/INSTALLATION_AND_USAGE.md)
+
 ## Installation
 
 ```bash
