@@ -2,7 +2,11 @@
   "name": "truerte-react",
   "description": "TrueRTE React Component",
   "repository": {
-    "url": "https://github.com/irteza/truerte-react"
+    "type": "git",
+    "url": "git+https://github.com/TrueRTE/truerte-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TrueRTE/truerte-react/issues"
   },
   "files": [
     "lib",
@@ -17,7 +21,7 @@
     "clean": "rimraf lib",
     "test": "bedrock-auto -b chrome-headless -f src/test/ts/**/*Test.ts",
     "test-manual": "bedrock -f src/test/ts/**/*Test.ts",
-    "build": "yarn run clean && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json",
+    "build": "npm run clean && tsc -p ./tsconfig.es2015.json && tsc -p ./tsconfig.cjs.json",
     "watch": "tsc -w -p ./tsconfig.es2015.json",
     "prepublishOnly": "npm run build"
   },
@@ -54,8 +58,6 @@
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
   },
-  "version": "2.0.2",
-  "dependencies": {
-    "@truerte/framework-integration-shared": "file:./framework-integration-shared"
-  }
+  "version": "0.0.3",
+  "dependencies": {}
 }

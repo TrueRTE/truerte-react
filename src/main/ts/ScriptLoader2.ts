@@ -4,7 +4,7 @@
  * Copyright (c) 2024 TrueRTE contributors
  * Licensed under the MIT license (https://github.com/truerte/truerte-react/blob/main/LICENSE.TXT)
  */
-import { uuid } from '@truerte/framework-integration-shared';
+import { uuid } from './Uuid';
 
 // TODO: Migrate to shared script loader.
 

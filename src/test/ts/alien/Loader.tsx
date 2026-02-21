@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Editor, IAllProps, IProps, Version } from '../../../main/ts/components/Editor';
 import { Editor as TrueRTEEditor } from 'truerte';
 import { before, context } from '@ephox/bedrock-client';
-import { pLoadVersion } from '@truerte/framework-integration-shared';
+import { pLoadVersion } from './VersionLoader';
 
 // @ts-expect-error Remove when dispose polyfill is not needed
 Symbol.dispose ??= Symbol('Symbol.dispose');

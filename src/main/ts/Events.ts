@@ -5,7 +5,7 @@
  * Licensed under the MIT license (https://github.com/truerte/truerte-react/blob/main/LICENSE.TXT)
  */
 import type { Editor as TrueRTEEditor, EditorEvent, Events } from 'truerte';
-import { customEvents, nativeEvents, validEvents } from '@truerte/framework-integration-shared';
+import { customEvents, nativeEvents, validEvents } from './EventNames';
 
 export type EventHandler<A> = (a: EditorEvent<A>, editor: TrueRTEEditor) => unknown;
 

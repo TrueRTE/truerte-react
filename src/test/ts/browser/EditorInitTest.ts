@@ -106,6 +106,13 @@ describe('EditorInitTest', () => {
           }
         });
       });
+
+      it('editorRef should receive the underlying TrueRTE editor instance', async () => {
+        const editorRef: { current: any } = { current: null };
+
+        using ctx = await render({ editorRef });
+        Assertions.assertEq('editorRef should point to the initialized editor instance', ctx.editor, editorRef.current);
+      });
     })
   );
 });

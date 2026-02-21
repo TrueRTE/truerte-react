@@ -9,7 +9,7 @@ import { IEvents } from '../Events';
 import { ScriptItem, ScriptLoader } from '../ScriptLoader2';
 import { getTrueRTE } from '../TrueRTE';
 import { isFunction, isTextareaOrInput, mergePlugins, configHandlers, isBeforeInputEventAvailable, setMode } from '../Utils';
-import { uuid } from '@truerte/framework-integration-shared';
+import { uuid } from '../Uuid';
 import type { Bookmark, Editor as TrueRTEEditor, EditorEvent, TrueRTE } from 'truerte';
 
 const changeEvents = 'change keyup compositionend setcontent CommentChange';
@@ -31,6 +31,7 @@ export type InitOptions = Omit<OmitStringIndexSignature<EditorOptions>, OmittedI
 } & { [key: string]: unknown };
 
 export type Version = `${'1'}${'' | `.${number}` | `.${number}.${number}`}`;
+export type EditorInstanceRef = React.Ref<TrueRTEEditor | null>;
 
 export interface IProps {
   /**
@@ -105,6 +106,11 @@ export interface IProps {
    */
   textareaName: string;
   /**
+   * @description Optional external ref that receives the underlying TrueRTE editor instance.
+   * Use this for imperative control from outside the component.
+   */
+  editorRef: EditorInstanceRef;
+  /**
    * @description The URL of the TrueRTE script to lazy load.
    */
   truerteScriptSrc: string;
@@ -165,6 +171,10 @@ export class Editor extends React.Component<IAllProps> {
   }
 
   public componentDidUpdate(prevProps: Partial<IAllProps>) {
+    if (this.props.editorRef !== prevProps.editorRef) {
+      this.assignEditorRef(prevProps.editorRef, null);
+      this.assignEditorRef(this.props.editorRef, this.editor ?? null);
+    }
     if (this.rollbackTimer) {
       clearTimeout(this.rollbackTimer);
       this.rollbackTimer = undefined;
@@ -253,10 +263,15 @@ export class Editor extends React.Component<IAllProps> {
       editor.remove();
       this.editor = undefined;
     }
+    this.assignEditorRef(this.props.editorRef, null);
   }
 
   public render() {
     return this.inline ? this.renderInline() : this.renderIframe();
+  }
+
+  public getEditor(): TrueRTEEditor | undefined {
+    return this.editor;
   }
 
   private beforeInputEvent() {
@@ -396,6 +411,18 @@ export class Editor extends React.Component<IAllProps> {
     }
   };
 
+  private assignEditorRef = (editorRef: EditorInstanceRef | undefined, editor: TrueRTEEditor | null) => {
+    if (editorRef === undefined || editorRef === null) {
+      return;
+    }
+
+    if (typeof editorRef === 'function') {
+      editorRef(editor);
+    } else {
+      (editorRef as React.MutableRefObject<TrueRTEEditor | null>).current = editor;
+    }
+  };
+
   private initialise = (attempts = 0) => {
     const target = this.elementRef.current;
     if (!target) {
@@ -441,6 +468,7 @@ export class Editor extends React.Component<IAllProps> {
       toolbar: this.props.toolbar ?? this.props.init?.toolbar,
       setup: (editor) => {
         this.editor = editor;
+        this.assignEditorRef(this.props.editorRef, editor);
         this.bindHandlers({});
 
         // When running in inline mode the editor gets the initial value

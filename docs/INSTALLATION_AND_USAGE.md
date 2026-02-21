@@ -252,6 +252,7 @@ Main props accepted by `Editor`:
 | `toolbar` | `string \| string[]` | Toolbar config (overrides `init.toolbar` when set). |
 | `disabled` | `boolean` | Sets editor mode to `readonly` when true. |
 | `textareaName` | `string` | Name attribute for iframe mode textarea target. |
+| `editorRef` | `React.Ref<TrueRTEEditor \| null>` | Receives the underlying editor instance for imperative control. |
 | `truerteScriptSrc` | `string` | Browser URL of TrueRTE script to lazy-load. |
 | `useLucideIcons` | `boolean` | Auto-select `truerte-lucide` icons when no explicit icon config is set. |
 | `rollback` | `number \| false` | Controlled mode rollback window (ms) or disabled. |
@@ -390,4 +391,3 @@ export default function ArticleEditor() {
   );
 }
 ```
-
